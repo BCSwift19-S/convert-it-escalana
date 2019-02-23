@@ -16,6 +16,8 @@ class ViewController: UIViewController {
                         "yards to meters",
                         "meters to feet",
                         "meters to yards"]
+    var fromUnits = ""
+    var toUnits = ""
 
     @IBOutlet weak var userInput: UITextField!
     
@@ -31,6 +33,8 @@ class ViewController: UIViewController {
         super.viewDidLoad()
         formulaPicker.delegate = self
         formulaPicker.dataSource = self
+        
+
     }
 
     @IBAction func convertButtonPressed(_ sender: UIButton) {
@@ -50,7 +54,13 @@ extension ViewController: UIPickerViewDelegate, UIPickerViewDataSource{
         return formulaArray[row]
     }
     func pickerView(_ pickerView: UIPickerView, didSelectRow row: Int, inComponent component: Int) {
-        fromUnitsLabel.text = formulaArray[row]
+        let unitsArray = formulaArray[row].components(separatedBy: " to ")
+        //a little confused with this line of code
+        fromUnits = unitsArray[0]
+        toUnits = unitsArray[1]
+        fromUnitsLabel.text = fromUnits
+        resultsLabel.text = toUnits
+        
     }
     
 }
